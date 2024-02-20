@@ -62,7 +62,8 @@ class MainWindow(QMainWindow):
         self.save_action.setEnabled(False)
 
     def closeEvent(self, event):
-        self.ow.close()
+        if self.ow is not None:
+            self.ow.close()
         self.close()
 
     def on_select_clicked(self):
@@ -84,18 +85,23 @@ class MainWindow(QMainWindow):
         self.logger.debug('Open file button clicked.')
 
         filename, selected_filter = QFileDialog.getOpenFileName(self)
-        self.log_parser.parse(filename)
-        self.select_action.setEnabled(True)
-        self.save_action.setEnabled(True)
+        if filename is not None:
+            try:
+                self.log_parser.parse(filename)
+            except ValueError as e:
+                self.logger.error(e)
+                return
+            self.select_action.setEnabled(True)
+            self.save_action.setEnabled(True)
 
-        self.logger.debug(f'{filename} opened successfully.')
+            self.logger.debug(f'{filename} opened successfully.')
 
-        sp = SignalProcessor(self.logger, self.log_parser)
-        x_axis = self.log_parser.get_data(self.X_NAME)
-        y_axis = self.log_parser.get_data('STAT_MOTORMOMENT_AKTUELL_WERT')
-        self.sc.add_base_plots(x_axis, y_axis,  sp.calc_power())
+            sp = SignalProcessor(self.logger, self.log_parser)
+            x_axis = self.log_parser.get_data(self.X_NAME)
+            y_axis = self.log_parser.get_data('STAT_MOTORMOMENT_AKTUELL_WERT')
+            self.sc.add_base_plots(x_axis, y_axis,  sp.calc_power())
 
-        self.setCentralWidget(self.sc)
+            self.setCentralWidget(self.sc)
 
     def save_handler(self):
         filename = 'plot.png'

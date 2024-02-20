@@ -20,8 +20,8 @@ class CustomPlot(FigureCanvasQTAgg):
 
     def add_plot(self, name, x, y, label=None):
         ax = self.ax1.twinx()
-        self.fig.subplots_adjust(right=0.75)
         self.ax_dict[name] = ax
+        self.fig.subplots_adjust(right=0.9-(len(self.ax_dict)*0.1))
         if label is None:
             label = name
         color = (np.random.random(), np.random.random(), np.random.random())
@@ -34,9 +34,11 @@ class CustomPlot(FigureCanvasQTAgg):
         plot = self.ax_dict.pop(name)
         plot.cla()
         plot.remove()
+        self.fig.subplots_adjust(right=0.9-(len(self.ax_dict)*0.1))
         self.draw()
 
     def add_base_plots(self, rpm, torque, power):
+        self.fig.subplots_adjust(left=0.09)
         self.ax1.plot(rpm, torque, 'g-')
         self.ax1.set_xlabel('RPM')
         self.ax1.set_ylabel('Torque [Nm]', color='g')
