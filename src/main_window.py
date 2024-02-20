@@ -1,14 +1,12 @@
 import logging
 
-from PySide6 import QtWidgets
 from PySide6.QtGui import QAction, QStandardItemModel, QStandardItem
-from PySide6.QtWidgets import QMainWindow, QFileDialog, QWidget, QListView, QCheckBox, QVBoxLayout
+from PySide6.QtWidgets import QMainWindow, QFileDialog, QWidget, QListView, QVBoxLayout
 from PySide6.QtCore import Qt
-from matplotlib.widgets import Cursor
 
-from CustomPlot import CustomPlot
-from LogParser import LogParser
-from SignalProcessor import SignalProcessor
+from src.custom_plot import CustomPlot
+from src.parser import LogParser
+from signal_processor import SignalProcessor
 from ui_mainwindow import Ui_MainWindow
 
 
@@ -104,7 +102,7 @@ class MainWindow(QMainWindow):
             self.setCentralWidget(self.sc)
 
     def save_handler(self):
-        filename = 'plot.png'
+        filename = '../plot.png'
         filename, selected_filter = QFileDialog.getSaveFileName(self, 'Save', filename, filter='PNG Files (*.png)')
         if filename != "":
             self.sc.fig.savefig(filename)
