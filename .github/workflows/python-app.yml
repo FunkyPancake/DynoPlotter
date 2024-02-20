@@ -40,7 +40,7 @@ jobs:
     - name: Build exe
       run:  |
         python -m pip install pyinstaller
-        pyinstaller -F main.py -n DynoPlotter --log-level INFO --clean 
+        pyinstaller -F src/main.py -n DynoPlotter --log-level INFO --clean
     - name: Save artifacts
       uses: actions/upload-artifact@v4
       with:
