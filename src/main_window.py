@@ -1,5 +1,7 @@
 import logging
+import os.path
 
+from PySide6 import QtGui
 from PySide6.QtCore import Qt, QSettings
 from PySide6.QtGui import QAction, QStandardItem
 from PySide6.QtWidgets import QMainWindow, QFileDialog
@@ -27,6 +29,9 @@ class MainWindow(QMainWindow):
 
         self.m_ui = Ui_MainWindow()
         self.m_ui.setupUi(self)
+        icon_paht = os.path.abspath('static/img/favicon.ico')
+        self.setWindowIcon(QtGui.QIcon(icon_paht))
+
         menubar = self.menuBar()
 
         self.open_action = QAction("&Open", self)
