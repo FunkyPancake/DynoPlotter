@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up Python 3.10
         uses: actions/setup-python@v3
         with:
@@ -43,7 +43,7 @@ jobs:
     needs: build
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up Python 3.10
         uses: actions/setup-python@v3
         with:
@@ -55,7 +55,7 @@ jobs:
           pip install -r requirements.txt
       - name: Build exe
         run: |
-          pyinstaller -F src/main.py -n DynoPlotter --log-level INFO --clean
+          pyinstaller --onefile src/main.py -n DynoPlotter --log-level INFO --clean
       - name: Save artifacts
         uses: actions/upload-artifact@v4
         with:
