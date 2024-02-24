@@ -11,7 +11,7 @@ from src.labels_window import LabelsWindow
 from src.parser import LogParser
 from src.signal_processor import SignalProcessor
 from src.ui_mainwindow import Ui_MainWindow
-
+import resources_rc
 
 class MainWindow(QMainWindow):
 
@@ -29,8 +29,7 @@ class MainWindow(QMainWindow):
 
         self.m_ui = Ui_MainWindow()
         self.m_ui.setupUi(self)
-        icon_paht = os.path.abspath('static/img/favicon.ico')
-        self.setWindowIcon(QtGui.QIcon(icon_paht))
+        self.setWindowIcon(QtGui.QIcon(':/icons/main_window'))
 
         menubar = self.menuBar()
 
