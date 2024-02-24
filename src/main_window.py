@@ -1,5 +1,7 @@
 import logging
+import os.path
 
+from PySide6 import QtGui
 from PySide6.QtCore import Qt, QSettings
 from PySide6.QtGui import QAction, QStandardItem
 from PySide6.QtWidgets import QMainWindow, QFileDialog
@@ -9,7 +11,7 @@ from src.labels_window import LabelsWindow
 from src.parser import LogParser
 from src.signal_processor import SignalProcessor
 from src.ui_mainwindow import Ui_MainWindow
-
+import resources_rc
 
 class MainWindow(QMainWindow):
 
@@ -27,6 +29,8 @@ class MainWindow(QMainWindow):
 
         self.m_ui = Ui_MainWindow()
         self.m_ui.setupUi(self)
+        self.setWindowIcon(QtGui.QIcon(':/icons/main_window'))
+
         menubar = self.menuBar()
 
         self.open_action = QAction("&Open", self)
