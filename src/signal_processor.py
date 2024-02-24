@@ -22,7 +22,7 @@ class SignalProcessor:
         time = self.parser.get_data(self.time_label)
         self.rpm = self.parser.get_data(self.rpm_label)
         self.cut_idx = next(i for i, x in enumerate(self.rpm) if x > 5000)
-        self.rpm = self.rpm[:self.cut_idx]
+        self.rpm = self.filter_signal(self.rpm)
         rpm = self.rpm * 2 * math.pi / 60
         tick_trg = time[0]
 
@@ -58,4 +58,4 @@ class SignalProcessor:
             if i == 0:
                 continue
             sz[i] = self.filter_freq * s + (1 - self.filter_freq) * sz[i - 1]
-        return sz[:self.cut_idx]
+        return np.array(sz[:self.cut_idx])
