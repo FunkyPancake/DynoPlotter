@@ -55,7 +55,7 @@ jobs:
           pip install -r requirements.txt
       - name: Build exe
         run: |
-          pyinstaller -onefile src/main.py -n DynoPlotter --log-level INFO --clean
+          pyinstaller --onefile src/main.py -n DynoPlotter --log-level INFO --clean
       - name: Save artifacts
         uses: actions/upload-artifact@v4
         with:
